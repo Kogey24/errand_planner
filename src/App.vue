@@ -1,26 +1,15 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import { onMounted } from 'vue'
+import { useSettingsStore } from '@/stores/settingsStore'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+const settings = useSettingsStore()
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+onMounted(() => {
+  document.documentElement.classList.toggle('dark', settings.theme === 'dark')
+})
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <DefaultLayout />
+</template>
