@@ -38,14 +38,14 @@ function handleSubmit(data) {
 
 <template>
   <div class="space-y-5">
-    <div class="flex items-center justify-between gap-3">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h2 class="text-2xl font-bold">Errands</h2>
         <p class="mt-1 text-sm text-gray-500">
           Active errands are automatically sorted by urgency.
         </p>
       </div>
-      <BaseButton @click="openAdd">
+      <BaseButton class="w-full sm:w-auto" @click="openAdd">
         <Plus class="h-4 w-4" aria-hidden="true" />
         Add
       </BaseButton>
@@ -53,7 +53,7 @@ function handleSubmit(data) {
 
     <FilterTabs v-model="filter" />
 
-    <div class="flex items-center justify-between gap-3 text-sm text-gray-400">
+    <div class="flex flex-col gap-1 text-sm text-gray-400 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
       <span>{{ filteredErrands.length }} errands</span>
       <span>Overdue, today, priority, then no deadline</span>
     </div>

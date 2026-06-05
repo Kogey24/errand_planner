@@ -28,17 +28,17 @@ const dateLabel = computed(() => dueDateLabel(props.errand))
 <template>
   <article
     :class="[
-      'rounded-lg border bg-white p-4 shadow-sm transition dark:bg-gray-800',
+      'rounded-lg border bg-white p-3 shadow-sm transition sm:p-4 dark:bg-gray-800',
       overdue ? 'border-red-300 dark:border-red-700' : 'border-gray-200 dark:border-gray-700',
       errand.status === STATUS.done && 'opacity-70',
     ]"
   >
-    <div class="flex items-start justify-between gap-3">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
       <div class="min-w-0 flex-1">
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center">
           <h3
             :class="[
-              'truncate text-base font-semibold',
+              'min-w-0 break-words text-base font-semibold leading-snug sm:truncate',
               errand.status === STATUS.done && 'text-gray-400 line-through',
             ]"
           >
@@ -49,23 +49,26 @@ const dateLabel = computed(() => dueDateLabel(props.errand))
           </BaseBadge>
         </div>
 
-        <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-gray-300">
-          <span v-if="errand.location" class="inline-flex items-center gap-1">
-            <MapPin class="h-4 w-4" aria-hidden="true" />
-            {{ errand.location }}
+        <div class="mt-3 grid grid-cols-1 gap-2 text-sm text-gray-500 sm:flex sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-1 dark:text-gray-300">
+          <span
+            v-if="errand.location"
+            class="inline-flex min-w-0 items-center gap-2 rounded-lg bg-gray-50 px-2.5 py-2 sm:bg-transparent sm:px-0 sm:py-0 dark:bg-gray-700/70 sm:dark:bg-transparent"
+          >
+            <MapPin class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+            <span class="min-w-0 truncate">{{ errand.location }}</span>
           </span>
           <span
             :class="[
-              'inline-flex items-center gap-1',
+              'inline-flex min-w-0 items-center gap-2 rounded-lg bg-gray-50 px-2.5 py-2 sm:bg-transparent sm:px-0 sm:py-0 dark:bg-gray-700/70 sm:dark:bg-transparent',
               overdue && 'font-semibold text-red-500',
             ]"
           >
-            <Calendar class="h-4 w-4" aria-hidden="true" />
-            {{ dateLabel }}
+            <Calendar class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+            <span class="min-w-0 truncate">{{ dateLabel }}</span>
           </span>
-          <span class="inline-flex items-center gap-1">
-            <Clock3 class="h-4 w-4" aria-hidden="true" />
-            {{ estimate }}
+          <span class="inline-flex min-w-0 items-center gap-2 rounded-lg bg-gray-50 px-2.5 py-2 sm:bg-transparent sm:px-0 sm:py-0 dark:bg-gray-700/70 sm:dark:bg-transparent">
+            <Clock3 class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+            <span class="min-w-0 truncate">{{ estimate }}</span>
           </span>
         </div>
 
@@ -83,9 +86,10 @@ const dateLabel = computed(() => dueDateLabel(props.errand))
         </p>
       </div>
 
-      <div class="flex flex-shrink-0 items-center gap-1">
+      <div class="flex w-full items-center gap-2 border-t border-gray-100 pt-3 sm:w-auto sm:flex-shrink-0 sm:border-t-0 sm:pt-0 dark:border-gray-700">
         <BaseButton
           v-if="errand.status !== STATUS.done"
+          class="min-w-0 flex-1 whitespace-nowrap sm:flex-none"
           size="sm"
           variant="secondary"
           @click="emit('complete', errand.id)"
@@ -95,7 +99,7 @@ const dateLabel = computed(() => dueDateLabel(props.errand))
         </BaseButton>
         <button
           type="button"
-          class="rounded p-1 text-gray-400 transition hover:bg-gray-100 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:bg-gray-700"
+          class="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-100 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:bg-gray-700"
           aria-label="Edit errand"
           @click="emit('edit', errand)"
         >
@@ -103,7 +107,7 @@ const dateLabel = computed(() => dueDateLabel(props.errand))
         </button>
         <button
           type="button"
-          class="rounded p-1 text-gray-400 transition hover:bg-gray-100 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 dark:hover:bg-gray-700"
+          class="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-100 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 dark:hover:bg-gray-700"
           aria-label="Delete errand"
           @click="emit('delete', errand.id)"
         >
