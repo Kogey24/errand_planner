@@ -30,6 +30,8 @@ The goal is to make the app feel like a lightweight planning assistant, not just
 - See dashboard statistics for totals, due today, completed count, high-priority count, and estimated time needed.
 - Persist errands and settings with Pinia persisted state.
 - Light and dark theme support.
+- Progressive Web App support for mobile installation.
+- Offline app shell caching through a service worker.
 
 ## Tech Stack
 
@@ -41,6 +43,8 @@ The goal is to make the app feel like a lightweight planning assistant, not just
 - Tailwind CSS
 - lucide-vue-next
 - ESLint
+- Web App Manifest
+- Service Worker
 
 ## Project Setup
 
@@ -331,3 +335,43 @@ dist/
 ```
 
 The folder is ignored by git through `.gitignore`.
+
+## Progressive Web App
+
+The app is installable on supported mobile browsers because it includes:
+
+- `public/manifest.webmanifest`
+- `public/sw.js`
+- `public/icon-192.png`
+- `public/icon-512.png`
+- `public/maskable-icon-512.png`
+- `public/apple-touch-icon.png`
+- `public/pwa-icon.svg`
+- `public/maskable-icon.svg`
+- Mobile app metadata in `index.html`
+- Service worker registration in `src/registerServiceWorker.js`
+
+The service worker is registered only for production builds. This avoids stale caching during local development.
+
+To test the PWA locally:
+
+```bash
+npm run build
+npm run preview
+```
+
+Then open the preview URL on a browser that supports PWA installation.
+
+On Android Chrome:
+
+1. Open the deployed site or local preview URL.
+2. Open the browser menu.
+3. Choose **Install app** or **Add to Home screen**.
+
+On iPhone Safari:
+
+1. Open the deployed site.
+2. Tap the share button.
+3. Choose **Add to Home Screen**.
+
+For the best mobile install experience, deploy the app over HTTPS. Service workers and PWA installation require a secure context, except for localhost during development.

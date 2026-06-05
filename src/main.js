@@ -4,6 +4,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import router from './router'
 import App from './App.vue'
 import './assets/main.css'
+import './registerServiceWorker'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
